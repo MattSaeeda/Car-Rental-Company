@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle, Button} from 'reactstrap';
 
 class Menu extends Component {
  
@@ -15,20 +15,39 @@ class Menu extends Component {
             this.setState({selectedPost: post});
         }
 
+        renderPost(post) {
+            if (post != null) {
+                return(
+                    <Card>
+                        <CardImg  top width="100%" src={post.image}/>
+                        <CardBody>
+                            <CardTitle>{post.tile}</CardTitle>
+                            <CardText>{post.summary}</CardText>
+                            <Button>Edit</Button>
+                        </CardBody>
+                    </Card>
+                );
+            }
+            else{
+                return(
+                    <div></div>
+                );
+            }
+        }
+    
+
     render() {
 
         const menu = this.props.posts.map((post) => {
             return (
-                <div key={post.id} className = "col-12 mt-5">
-                    <Card onClick={() => this.onPostSelect(post)}>
-                    
-                        {/* <CardImg src={post.image_url} alt={post.title} />
-                            <CardImgOverlay>
-                                <CardTitle>{post.title}</CardTitle>
-                            </CardImgOverlay> */}
-                        
-                        <CardTitle>{post.tile}</CardTitle>
-                        <CardText>{post.summary}</CardText>
+                <div key={post.id} className = "col-4 mt-5">
+                    <Card >
+                        <CardImg  top width="33%" src={post.image}/>
+                        <CardBody>
+                            <CardTitle>{post.title}</CardTitle>
+                            <CardText>{post.summary}</CardText>
+                            <Button onClick={() => this.onPostSelect(post)}>Edit</Button>
+                        </CardBody>
                     </Card>
                 </div>
             );
@@ -36,10 +55,13 @@ class Menu extends Component {
 
         return (
             <div className="container">
-                <div className="row">
+                <div className="culomn">
                     <Card list>
                         {menu}
                     </Card>
+                </div>
+                <div className="row">
+                    {this.renderPost(this.state.selectedPostlectedPost)}
                 </div>
             </div>
         )
