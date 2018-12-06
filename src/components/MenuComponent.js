@@ -42,9 +42,9 @@ class Menu extends Component {
 
         const menu = this.props.posts.map((post) => {
             return (
-                <div key={post.id} className = "col-4 mt-5">
+                <div key={post.id} className = "col-12 col-md-4">
                     <Card >
-                        <CardImg  top width="33%" src={post.image}/>
+                        <CardImg  top width="100%" src={post.image}/>
                         <CardBody>
                             <CardTitle>{post.title}</CardTitle>
                             <CardText>{post.summary}</CardText>
@@ -57,13 +57,13 @@ class Menu extends Component {
         });
 
         return (
-            <div className="container">
-                <div className="culomn">
-                    <Card list>
-                        {menu}
-                    </Card>
-                </div>
+            <div className="container-fluid" color>
                 <div className="row">
+                    
+                        {menu}
+                    
+                </div>
+                <div className="col">
                     {this.renderPost(this.state.selectedPost)}
                 </div>
             </div>
