@@ -26,7 +26,7 @@ class App extends Component {
         //   </div>
         // </Navbar> */ }
         <Menu posts={this.state.posts}/>
-        {/* <Footer></Footer> */}
+         <Footer /> 
       </div>
     );
   }
