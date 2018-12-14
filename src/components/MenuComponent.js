@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Card, CardImg, CardText, CardBody, CardTitle, Button} from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle, Button, InputGroupAddon, InputGroup,
+     InputGroupText, Input} from 'reactstrap';
 
 class Menu extends Component {
  
@@ -21,10 +22,10 @@ class Menu extends Component {
                 console.log("render started to show post")
                 return(
                     <Card>
-                        <CardImg  top width="100%" src={post.image}/>
+                        <CardImg  top width="100%" src={post.picture}/>
                         <CardBody>
-                            <CardTitle>{post.tile}</CardTitle>
-                            <CardText>{post.content}</CardText>
+                            <CardTitle>{post.name}</CardTitle>
+                            <CardText>{post.pricePerDay}</CardText>
                             <Button>Edit</Button>
                         </CardBody>
                     </Card>
@@ -44,12 +45,25 @@ class Menu extends Component {
             return (
                 <div key={post.id} className = "shadow p-3 col-12 col-md-4">
                     <Card >
-                        <CardImg  top width="100%" src={post.image}/>
+                        <CardImg  top width="100%" src={post.picture}/>
                         <CardBody>
-                            <CardTitle>{post.title}</CardTitle>
-                            <CardText>{post.summary}</CardText>
-                            <Button onClick={() => this.onPostSelect(post)}>Show</Button>
-                            <button>Edit</button>
+                            <CardTitle>{post.name}</CardTitle>
+                            <CardText>{post.pricePerDay} Ether Per day</CardText>
+                            <InputGroup>
+                                <InputGroupAddon addonType="prepend">Please enter the rent period: </InputGroupAddon>
+                                <Input placeholder="Days" type="number" step="1" />                          
+                            </InputGroup>
+                            <br />
+                            <InputGroup>
+                                <InputGroupAddon addonType="prepend">Estimated total cost: </InputGroupAddon>
+                                <Input placeholder= {post.name} type="number"  />
+                                <InputGroupAddon addonType="append">Ethers</InputGroupAddon> 
+                            </InputGroup>
+                            <br/>
+                            <CardText>You'll earn {post.name} CRT Tokens</CardText>
+                            <Button color="primary" onClick={() => this.onPostSelect(post)}>Rent</Button>
+                            <Button color="danger">Return</Button>
+                            <Button color="success">Show my CRT balance</Button>
                         </CardBody>
                     </Card>
                 </div>
