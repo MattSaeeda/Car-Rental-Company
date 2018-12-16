@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-// import { Navbar } from 'reactstrap';
 import Menu from './components/MenuComponent';
 import NavBar from './components/NavBarComponent';
 import Footer from './components/FooterComponent';
 import './App.css';
 import {cars} from './shared/cars';
+import CarouselBar from './components/CarouselBar';
 
 class App extends Component {
 
@@ -14,9 +13,6 @@ class App extends Component {
 
     this.state = {
       cars: cars,
-      // web3: null,
-      // accounts: null,
-      // contract: null
     };
   }
 
@@ -27,6 +23,7 @@ class App extends Component {
       <div>
 
         <NavBar></NavBar>
+        <CarouselBar />
         <Menu cars={this.state.cars}/>
         <Footer /> 
 
