@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Card, CardImg, CardText, CardBody, CardTitle, Button, InputGroupAddon, InputGroup,
-     InputGroupText, Input} from 'reactstrap';
-//import getWeb3 from "./utils/getWeb3";
-import {cars} from '../shared/cars';
+import {Card, CardImg, CardText, CardBody, CardTitle, Button, InputGroupAddon, InputGroup
+    , Input} from 'reactstrap';
+import getWeb3 from "./utils/getWeb3";   
 
 class Menu extends Component {
  
@@ -12,7 +11,7 @@ class Menu extends Component {
         this.state = {
             selectedCar: null,
             rentPeriod: 0,
-            estimatedCost: 0
+
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -23,13 +22,43 @@ class Menu extends Component {
             console.log(newRentPeriod)
             this.setState({
                 rentPeriod : newRentPeriod,
-                estimatedCost:  newRentPeriod*cars.pricePerDay
             })
         }
 
+
+        componentDidMount = async () => {
+            try {
+              // Get network provider and web3 instance.
+              const web3 = await getWeb3();
+        
+              // Use web3 to get the user's accounts.
+              const accounts = await web3.eth.getAccounts();
+        
+              // Get the contract instance.
+              const Contract = truffleContract(SimpleStorageContract);
+              Contract.setProvider(web3.currentProvider);
+              const instance = await Contract.deployed();
+        
+              // Set web3, accounts, and contract to the state, and then proceed with an
+              // example of interacting with the contract's methods.
+              this.setState({ web3, accounts, contract: instance }, this.runExample);
+            } catch (error) {
+              // Catch any errors for any of the above operations.
+              alert(
+                `Failed to load web3, accounts, or contract. Check console for details.`
+              );
+              console.log(error);
+            }
+          };
+
+
+
+
+        
 render() {
 
     const menu = this.props.cars.map((car) => {
+    
         return (
             <div key={car.id} className = "shadow p-3 col-12 col-md-4">
                 <Card >
@@ -42,7 +71,7 @@ render() {
                             <Input placeholder="Days" type="number" step="1" onChange={this.handleChange} />                          
                         </InputGroup>
                         <br />
-                        <cardText>Estimated total cost: {this.state.estimatedCost}</cardText>
+                        <cardText>Estimated total cost: {car.pricePerDay*this.state.rentPeriod}</cardText>
                         <br/>
                         <CardText>You'll earn {car.CRTTokenPerDay*this.state.rentPeriod} CRT Tokens</CardText>
                         <Button color="primary">Rent</Button>

@@ -21,9 +21,9 @@ export const cars =
           "id": 2,
           "name": "Lincoln",
           "picture": "assets/images/lincoln.png",
-          "pricePerDay": 1.2,
+          "pricePerDay": 1,
           "available": true,
-          "CRTTokenPerDay": 1.74
+          "CRTTokenPerDay": 2
       },
       {
           "id": 3,
